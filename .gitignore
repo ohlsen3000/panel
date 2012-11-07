@@ -6,3 +6,7 @@ bin
 .gradle
 .classpath
 nbproject/private
+.classpath
+.project
+target
+
