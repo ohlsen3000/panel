@@ -18,6 +18,12 @@ import javax.swing.JOptionPane;
  */
 public class TcSound extends javax.swing.JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	SoundPlayerService playerService = new SoundPlayerService();
+	
     /**
      * Creates new form TcSound
      */
@@ -551,24 +557,12 @@ public class TcSound extends javax.swing.JFrame {
 
             // generate filename from action command
             String command = ((JButton) evt.getSource()).getActionCommand();
-            String fileName = command.concat(".wav");
-
-            // Open an audio input stream.
-            InputStream inputStream = this.getClass().getResourceAsStream(fileName);
-            InputStream bufferedInputStream = new BufferedInputStream(inputStream);
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedInputStream);
-
-
-            // Open audio clip and load samples from the audio input stream.
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
-            clip.start();
-
-            inputStream.close();
-            bufferedInputStream.close();
+            
+            this.playerService.playSound(command);
 
         } catch (Exception exc) {
             System.out.println(exc.toString());
+            exc.printStackTrace();
             JOptionPane.showMessageDialog(null, exc.getMessage());
         }
     }//GEN-LAST:event_playSound
