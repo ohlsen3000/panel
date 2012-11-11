@@ -13,13 +13,13 @@ import org.kc7bfi.jflac.apps.Player;
  * @author tangente
  */
 public class FlacSoundPlayer {
-    
+
     Player player = new Player();
-    
+
     public void play(String file) throws IOException,
                    LineUnavailableException{
-        
+
         this.player.decode(file);
-        
+
     }
 }
