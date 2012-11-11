@@ -1,9 +1,8 @@
 dist/
 build/
 bin
-target
 .settings
-.classpath
-.gradle
-nbproject/
 .project
+.gradle
+.classpath
+nbproject/private
