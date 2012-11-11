@@ -3,6 +3,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 
 version = '2.0.6-SNAPSHOT'
+sourceCompatibility = 1.7
 
 dependencies {
     compile group: 'com.flexive', name: 'jflac', version: '1.3'
@@ -14,10 +15,17 @@ jar {
     }
 }
 
-task distribution(type: Tar, dependsOn : 'jar') {
-    from 'build/libs'
-    into('lib')
+task cleanBuild << {
+	delete buildDir
 }
+
+task dist(type:Zip, dependsOn : 'jar'){
+    from jar.outputs.files
+    from runtimeClasspath 
+    from 'src/main/startup' 
+    
+}
+
 
 repositories {
     mavenCentral()
