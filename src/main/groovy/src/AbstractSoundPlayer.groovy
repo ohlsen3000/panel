@@ -17,11 +17,11 @@ abstract class AbstractSoundPlayer {
 
     abstract  protected String getSuffix();
 
-    private String completeFileName(String filename){
+    protected String completeFileName(String filename){
         return '/src/'.plus(filename).plus('.').plus(getSuffix());
     }
 
-    protected asInputStream(String filename){
+    protected InputStream asInputStream(String filename){
         String complete = completeFileName(filename);
         ClassPathResource resource = new ClassPathResource(complete);
         resource.inputStream;
@@ -35,14 +35,6 @@ abstract class AbstractSoundPlayer {
         return exists
     }
 
-    protected void playAudioStream(AudioInputStream audioStream){
-
-        // Open audio clip and load samples from the audio input stream.
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioStream);
-        clip.start();
-
-    }
 }
 
 

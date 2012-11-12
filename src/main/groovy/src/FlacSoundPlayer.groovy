@@ -8,6 +8,9 @@ import javax.sound.sampled.AudioInputStream
 import javax.sound.sampled.LineUnavailableException
 
 import org.kc7bfi.jflac.sound.spi.FlacAudioFileReader
+import org.springframework.core.io.ClassPathResource
+import org.kc7bfi.jflac.apps.Player
+import org.kc7bfi.jflac.FLACDecoder
 
 /**
  *
@@ -23,17 +26,13 @@ public class FlacSoundPlayer extends AbstractSoundPlayer implements SoundPlayer 
     LineUnavailableException{
 
         Thread.start {
-
-            FlacAudioFileReader audioReader = new FlacAudioFileReader()
-
-            InputStream bufferedInputStream = new BufferedInputStream(asInputStream(fileName))
-            AudioInputStream audioStream = audioReader.getAudioInputStream(bufferedInputStream)
-
-            playAudioStream(audioStream);
-
-            bufferedInputStream.close();
-
-            bufferedInputStream.closeQuietly();
+            FLACDecoder decoder = new FLACDecoder(asInputStream(fileName));
+            decoder.addPCMProcessor(new Player());
+            try {
+                decoder.decode();
+            } catch (EOFException e) {
+                // skip
+            }
         }
     }
 }
