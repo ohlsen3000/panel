@@ -4,9 +4,6 @@
  */
 package src;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
