@@ -4,28 +4,36 @@
  */
 package src;
 
-import java.io.IOException;
-import javax.sound.sampled.LineUnavailableException;
-import org.kc7bfi.jflac.apps.Player;
-import src.SoundPlayer;
+import javax.sound.sampled.AudioInputStream
+import javax.sound.sampled.LineUnavailableException
+
+import org.kc7bfi.jflac.sound.spi.FlacAudioFileReader
 
 /**
  *
  * @author tangente
  */
 public class FlacSoundPlayer extends AbstractSoundPlayer implements SoundPlayer {
-        
+
     protected String getSuffix(){
         return "flac";
     }
-    
+
     public void play(String fileName) throws IOException,
     LineUnavailableException{
-                       
+
         Thread.start {
-            File file = asFile(fileName);
-            new Player().decode(file.absolutePath);
+
+            FlacAudioFileReader audioReader = new FlacAudioFileReader()
+
+            InputStream bufferedInputStream = new BufferedInputStream(asInputStream(fileName))
+            AudioInputStream audioStream = audioReader.getAudioInputStream(bufferedInputStream)
+
+            playAudioStream(audioStream);
+
+            bufferedInputStream.close();
+
+            bufferedInputStream.closeQuietly();
         }
-        
     }
 }
