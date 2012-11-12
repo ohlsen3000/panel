@@ -4,13 +4,8 @@
  */
 package src;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import src.SoundPlayer;
+import javax.sound.sampled.AudioInputStream
+import javax.sound.sampled.AudioSystem
 
 /**
  *
@@ -19,27 +14,23 @@ import src.SoundPlayer;
 public class WavSoundPlayer extends AbstractSoundPlayer implements SoundPlayer{
 
     private static final String SUFFIX = "wav";
-	
+
     protected String getSuffix(){
         return SUFFIX;
     }
 
     @Override
     public void play(String fileName) throws Exception {
-        File file = asFile(fileName);	
-        
+        InputStream inputStream = asInputStream(fileName);
+
         // Open an audio input stream.
-        InputStream bufferedInputStream = file.newInputStream();
+        InputStream bufferedInputStream = new BufferedInputStream(inputStream)
         AudioInputStream audioStream = AudioSystem.getAudioInputStream(bufferedInputStream);
 
 
-        // Open audio clip and load samples from the audio input stream.
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioStream);
-        clip.start();
+        playAudioStream(audioStream);
 
-        bufferedInputStream.close();
+        bufferedInputStream.closeQuietly();
 
     }
-    
 }
