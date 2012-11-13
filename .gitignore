@@ -4,10 +4,8 @@ bin
 .settings
 .project
 .gradle
-.classpath
 nbproject/private
 .classpath
-.project
 target
-bin
+
 
